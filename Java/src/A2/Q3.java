@@ -2,19 +2,28 @@ package A2;
 
 public class Q3 {
     public static void main(String[] args) {
-        int size = 5;
+        int n = 3;
 
-        // Outer loop for rows
-        for (int i = 1; i <= size; i++) {
-            // Inner loop for columns
-            for (int j = 1; j <= size; j++) {
-                if (j == i || j == size - i + 1) {
-                    System.out.print(" ");
-                } else {
-                    System.out.print("*  "); // Print spaces for the pattern
-                }
+        //Upper Inverted Pyramid
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = 0; j < i; j++) {
+                System.out.print(" "); //Print spaces
             }
-            System.out.println(); // Move to the next line after printing each row
+            for (int k = i; k <= n - 1; k++) {
+                System.out.print("*" + " "); //Print Star and Space
+            }
+            System.out.println(""); //Print New line
+        }
+
+        //For lower Pyramid
+        for (int i =1; i <= n - 1; i++) {
+            for (int j = 0; j < i; j++) {
+                System.out.print(" "); //Print blank space
+            }
+            for (int k = i; k <= n - 1; k++) {
+                System.out.print("*" + " "); //Print star and blank space
+            }
+            System.out.println(""); //New line
         }
     }
 }

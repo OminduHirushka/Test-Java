@@ -8,6 +8,6 @@ public class Q25 {
         //int #dim;
         //int %percent;
         //int *divide;
-        int sales_Summer_2005_gross_sales;
+        //int sales_Summer_2005_gross_sales;_
     }
 }
