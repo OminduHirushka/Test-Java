@@ -14,3 +14,4 @@ public class Q7 {
         System.out.println('\u0041'==a);
     }
 }
+

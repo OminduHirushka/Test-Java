@@ -1,6 +1,6 @@
 package A3;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Q8 {
     public static void main(String[] args) {
@@ -14,3 +14,4 @@ public class Q8 {
         System.out.println("Your age after 10 years is : " +age);
     }
 }
+

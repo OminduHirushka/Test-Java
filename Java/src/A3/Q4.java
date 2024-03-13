@@ -11,3 +11,4 @@ public class Q4 {
         System.out.println(10 + "20" + 30);
     }
 }
+
