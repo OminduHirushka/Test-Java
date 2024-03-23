@@ -24,4 +24,3 @@ public class Q24 {
         System.out.println(a);
     }
 }
-

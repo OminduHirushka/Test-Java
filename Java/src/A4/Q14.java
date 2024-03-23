@@ -19,4 +19,3 @@ public class Q14 {
         System.out.println(b=(true!=false));
     }
 }
-

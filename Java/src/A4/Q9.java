@@ -26,4 +26,3 @@ public class Q9 {
         System.out.println("Maximum Number Is: "+ max);
     }
 }
-

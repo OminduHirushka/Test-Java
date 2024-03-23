@@ -17,4 +17,3 @@ public class Q27 {
         System.out.println("Thanking you..");
     }
 }
-

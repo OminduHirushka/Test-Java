@@ -18,4 +18,3 @@ public class Q25 {
         // System.out.print(b + "," + c + "," + d);             // Error (Variable d might not have been initialized)
     }
 }
-

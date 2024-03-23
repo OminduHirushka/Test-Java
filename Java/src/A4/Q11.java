@@ -17,4 +17,3 @@ public class Q11 {
         // if ((x=100)>0==true){}             // Legal (syntactically valid)
     }
 }
-

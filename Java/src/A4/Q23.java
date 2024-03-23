@@ -24,4 +24,3 @@ public class Q23 {
         // System.out.println(z);               //Line 10 (Error)
     }
 }
-

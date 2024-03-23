@@ -7,10 +7,9 @@ public class Q21 {
 
         System.out.println(x=10);
         System.out.println(bool=true);
-        //System.out.println(x=10>0);
+        // System.out.println(x=10>0);
         System.out.println((x=10)>0);
         System.out.println(bool=(x=10)>0);
         System.out.println(bool=x+y>100);
     }
 }
-

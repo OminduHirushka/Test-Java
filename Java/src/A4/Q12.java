@@ -18,4 +18,3 @@ public class Q12 {
         // if(b=(false==true)){}               // Legal (syntactically valid)
     }
 }
-

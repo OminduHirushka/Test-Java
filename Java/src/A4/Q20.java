@@ -13,4 +13,3 @@ public class Q20 {
         System.out.println(!(k>m));
     }
 }
-

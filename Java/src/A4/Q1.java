@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 public class Q1 {
     public static void main(String[] args) {
-        Scanner number = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         System.out.print("Input First Number: ");
-        int num1 = number.nextInt();
+        int num1 = scanner.nextInt();
 
         System.out.print("Input First Number: ");
-        int num2 = number.nextInt();
+        int num2 = scanner.nextInt();
 
         if (num1>num2){
             int total;
@@ -22,4 +22,3 @@ public class Q1 {
         }
     }
 }
-

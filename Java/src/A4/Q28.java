@@ -31,4 +31,3 @@ public class Q28 {
         System.out.print(" " + (7%5));
     }
 }
-

@@ -11,4 +11,3 @@ public class Q26 {
         System.out.println(a+ " "+ b);
     }
 }
-

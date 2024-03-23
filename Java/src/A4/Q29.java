@@ -13,4 +13,3 @@ public class Q29 {
         System.out.println(a+ " "+ b+ " "+ c+ " "+ d+ " "+ x);
     }
 }
-

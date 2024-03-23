@@ -4,14 +4,14 @@ import java.util.Scanner;
 
 public class Q4 {
     public static void main(String[] args) {
-        Scanner shop = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         System.out.print("Name of the product: ");
-        String product = shop.next();
+        String product = scanner.next();
         System.out.print("Input the unit price: ");
-        int price = shop.nextInt();
+        int price = scanner.nextInt();
         System.out.print("Input the amount: ");
-        int amount = shop.nextInt();
+        int amount = scanner.nextInt();
 
         double total = price * amount;
         System.out.println("\nTotal price:"+ total);
@@ -23,4 +23,3 @@ public class Q4 {
         }
     }
 }
-

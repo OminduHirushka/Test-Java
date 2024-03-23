@@ -4,20 +4,19 @@ import java.util.Scanner;
 
 public class Q2 {
     public static void main(String[] args) {
-        Scanner number = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         System.out.print("Input a number: ");
-        int num1 = number.nextInt();
+        int num = scanner.nextInt();
 
         int absNum;
 
-        if (num1>0){
-            absNum = num1;
-            System.out.println("Absolute Number Of "+ num1+ " = "+ absNum);
+        if (num>0){
+            absNum = num;
+            System.out.println("Absolute Number Of "+ num+ " = "+ absNum);
         } else {
-            absNum = -num1;
-            System.out.println("Absolute Number Of "+ num1+ " = "+ absNum);
+            absNum = -num;
+            System.out.println("Absolute Number Of "+ num+ " = "+ absNum);
         }
     }
 }
-
