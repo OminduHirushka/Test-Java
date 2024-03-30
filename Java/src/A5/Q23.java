@@ -33,11 +33,11 @@ public class Q23 {
         }
         */                                                                 // Output --> 0,10 1,9 2,8 3,7 4,6 5,5
 
-        /*
+
         for(int i=0;i<128;i++){
             System.out.println((char)i+" "+ i);
         }
-        */                                                                 // Output --> (ASCII_Character) 0-127
+                                                                         // Output --> (ASCII_Character) 0-127
 
         /*
         int x=1;

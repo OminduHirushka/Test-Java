@@ -1,12 +1,21 @@
 package A5;
 
 public class Q8 {
+    public static boolean isPrime(int num) {
+        boolean p = true;
+        for (int i = 2; i < num; i++) {
+            if (num % i == 0) {
+                p = false;
+                break;
+            }
+        }
+        return p;
+    }
+
     public static void main(String[] args) {
         for (int i=2; i<100; i++){
-            for (int j=2; j<100; j++){
-                if (i%j == 0){
-                    System.out.println(j);
-                }
+            if (isPrime(i)){
+                System.out.println(i);
             }
         }
     }
