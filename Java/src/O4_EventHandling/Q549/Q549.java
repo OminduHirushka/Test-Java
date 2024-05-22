@@ -1,10 +1,16 @@
-package O4_EventHandling.Q531;
+package O4_EventHandling.Q549;
 
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-class DisplayWindow extends JFrame {
+class WaterLevelObserver extends JFrame {
+    public void update(int waterLevel) {
+
+    }
+}
+
+class DisplayWindow extends WaterLevelObserver {
     private JLabel displayLabel;
 
     DisplayWindow() {
@@ -21,12 +27,12 @@ class DisplayWindow extends JFrame {
         setVisible(true);
     }
 
-    public void setDisplayLabelValue(int waterLevel) {
+    public void update(int waterLevel) {
         this.displayLabel.setText(Integer.toString(waterLevel));
     }
 }
 
-class AlarmWindow extends JFrame {
+class AlarmWindow extends WaterLevelObserver {
     private JLabel alarmLabel;
 
     AlarmWindow() {
@@ -43,12 +49,12 @@ class AlarmWindow extends JFrame {
         setVisible(true);
     }
 
-    public void setAlarmLabelValue(int waterLevel) {
+    public void update(int waterLevel) {
         this.alarmLabel.setText(waterLevel > 50 ? "On" : "Off");
     }
 }
 
-class SplitterWindow extends JFrame {
+class SplitterWindow extends WaterLevelObserver {
     private JLabel splitterLabel;
 
     SplitterWindow() {
@@ -65,27 +71,22 @@ class SplitterWindow extends JFrame {
         setVisible(true);
     }
 
-    public void setSplitterLabelValue(int waterLevel) {
+    public void update(int waterLevel) {
         this.splitterLabel.setText(waterLevel > 75 ? "On" : "Off");
     }
 }
 
 class WaterTankController {
-    private DisplayWindow displayWindow;
-    private AlarmWindow alarmWindow;
-    private SplitterWindow splitterWindow;
+    private WaterLevelObserver[] observer = new WaterLevelObserver[0];
     private int waterLevel;
 
-    public void setDisplayWindow(DisplayWindow displayWindow) {
-        this.displayWindow = displayWindow;
-    }
-
-    public void setAlarmWindow(AlarmWindow alarmWindow) {
-        this.alarmWindow = alarmWindow;
-    }
-
-    public void setSplitterWindow(SplitterWindow splitterWindow) {
-        this.splitterWindow = splitterWindow;
+    public void addWaterLevelObserver(WaterLevelObserver waterLevelObserver) {
+        WaterLevelObserver[] temp = new WaterLevelObserver[observer.length + 1];
+        for (int i = 0; i < observer.length; i++) {
+            temp[i] = observer[i];
+        }
+        temp[temp.length - 1] = waterLevelObserver;
+        observer = temp;
     }
 
     public void setWaterLevel(int waterLevel) {
@@ -96,9 +97,9 @@ class WaterTankController {
     }
 
     public void notifyObject() {
-        displayWindow.setDisplayLabelValue(waterLevel);
-        alarmWindow.setAlarmLabelValue(waterLevel);
-        splitterWindow.setSplitterLabelValue(waterLevel);
+        for (WaterLevelObserver waterLevelObserver : observer) {
+            waterLevelObserver.update(waterLevel);
+        }
     }
 }
 
@@ -131,12 +132,12 @@ class WaterTankWindow extends JFrame {
     }
 }
 
-public class Q531 {
+public class Q549 {
     public static void main(String[] args) {
         WaterTankController waterTankController = new WaterTankController();
-        waterTankController.setAlarmWindow(new AlarmWindow());
-        waterTankController.setDisplayWindow(new DisplayWindow());
-        waterTankController.setSplitterWindow(new SplitterWindow());
+        waterTankController.addWaterLevelObserver(new AlarmWindow());
+        waterTankController.addWaterLevelObserver(new DisplayWindow());
+        waterTankController.addWaterLevelObserver(new SplitterWindow());
 
         WaterTankWindow waterTankWindow = new WaterTankWindow(waterTankController);
     }

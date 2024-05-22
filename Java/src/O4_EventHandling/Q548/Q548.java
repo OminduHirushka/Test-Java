@@ -1,4 +1,4 @@
-package O4_EventHandling.Q531;
+package O4_EventHandling.Q548;
 
 import java.awt.*;
 import javax.swing.*;
@@ -70,10 +70,34 @@ class SplitterWindow extends JFrame {
     }
 }
 
+class SMSWindow extends JFrame {
+    private JLabel smsLabel;
+
+    SMSWindow() {
+        setSize(300, 300);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new FlowLayout());
+        setTitle("SMS Window");
+
+        smsLabel = new JLabel();
+        smsLabel.setFont(new Font("", 1, 25));
+        add(smsLabel);
+
+        setVisible(true);
+    }
+
+    public void setSmsLabel(int waterLevel) {
+        smsLabel.setText("Sending SMS : " + waterLevel);
+    }
+}
+
 class WaterTankController {
     private DisplayWindow displayWindow;
     private AlarmWindow alarmWindow;
     private SplitterWindow splitterWindow;
+    private SMSWindow smsWindow;
+    ;
     private int waterLevel;
 
     public void setDisplayWindow(DisplayWindow displayWindow) {
@@ -88,6 +112,10 @@ class WaterTankController {
         this.splitterWindow = splitterWindow;
     }
 
+    public void setSmsWindow(SMSWindow smsWindow) {
+        this.smsWindow = smsWindow;
+    }
+
     public void setWaterLevel(int waterLevel) {
         if (this.waterLevel != waterLevel) {
             this.waterLevel = waterLevel;
@@ -99,6 +127,7 @@ class WaterTankController {
         displayWindow.setDisplayLabelValue(waterLevel);
         alarmWindow.setAlarmLabelValue(waterLevel);
         splitterWindow.setSplitterLabelValue(waterLevel);
+        smsWindow.setSmsLabel(waterLevel);
     }
 }
 
@@ -131,12 +160,13 @@ class WaterTankWindow extends JFrame {
     }
 }
 
-public class Q531 {
+public class Q548 {
     public static void main(String[] args) {
         WaterTankController waterTankController = new WaterTankController();
         waterTankController.setAlarmWindow(new AlarmWindow());
         waterTankController.setDisplayWindow(new DisplayWindow());
         waterTankController.setSplitterWindow(new SplitterWindow());
+        waterTankController.setSmsWindow(new SMSWindow());
 
         WaterTankWindow waterTankWindow = new WaterTankWindow(waterTankController);
     }
