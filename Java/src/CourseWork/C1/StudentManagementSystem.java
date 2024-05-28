@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class StudentManagementSystem {
     static int MAX_STUDENTS = 100;
-    static String[] studentIds = new String[MAX_STUDENTS];
-    static String[] studentNames = new String[MAX_STUDENTS];
+    static String[] stId = new String[MAX_STUDENTS];
+    static String[] stName = new String[MAX_STUDENTS];
     static int[] programmingMarks = new int[MAX_STUDENTS];
     static int[] databaseMarks = new int[MAX_STUDENTS];
     static int studentCount = 0;
@@ -38,7 +38,6 @@ public class StudentManagementSystem {
             switch (option) {
                 case 1:
                     addNewStudent(scanner);
-                    clearConsole();
                     break;
                 case 2:
                     addNewStudentWithMarks(scanner);
@@ -59,13 +58,13 @@ public class StudentManagementSystem {
                     printStudentDetails(scanner);
                     break;
                 case 8:
-                    printStudentRanks();
+                    printStudentRanks(scanner);
                     break;
                 case 9:
-                    bestInProgrammingFundamentals();
+                    bestInProgrammingFundamentals(scanner);
                     break;
                 case 10:
-                    bestInDatabaseManagementSystem();
+                    bestInDatabaseManagementSystem(scanner);
                     break;
                 case 11:
                     System.exit(0);
@@ -90,7 +89,12 @@ public class StudentManagementSystem {
             int index = findStudentIndexById(id);
 
             if (index != -1) {
-                System.out.println("Student ID already exists");
+                System.out.print("Student ID already exists. Do you want to try again? (yes/no): ");
+                String option = scanner.nextLine();
+                if (!option.equalsIgnoreCase(("yes"))) {
+                    break;
+                }
+
                 addNewStudent(scanner);
                 continue;
             }
@@ -98,12 +102,12 @@ public class StudentManagementSystem {
             System.out.print("Enter Student Name : ");
             String name = scanner.nextLine();
 
-            studentIds[studentCount] = id;
-            studentNames[studentCount] = name;
+            stId[studentCount] = id;
+            stName[studentCount] = name;
             studentCount++;
-            System.out.println("Student has been added successfully.");
+            System.out.println("Student added successfully.");
 
-            System.out.print("Do you want to add another new Student? (yes/no): ");
+            System.out.print("Do you want to add another Student? (yes/no): ");
             String option = scanner.nextLine();
             if (!option.equalsIgnoreCase(("yes"))) {
                 break;
@@ -125,24 +129,32 @@ public class StudentManagementSystem {
             int index = findStudentIndexById(id);
 
             if (index != -1) {
-                System.out.println("Student ID already exists. Try again.");
-                addNewStudent(scanner);
+                System.out.print("Student ID already exists. Do you want to try again? (yes/no): ");
+                String option = scanner.nextLine();
+                if (!option.equalsIgnoreCase(("yes"))) {
+                    break;
+                }
                 continue;
             }
 
             System.out.print("Enter Student Name : ");
             String name = scanner.nextLine();
-            System.out.print("Programming Fundamentals Marks: ");
+            System.out.print("Programming Fundamentals Marks    : ");
             int prMarks = scanner.nextInt();
-            System.out.print("Database Management Systems Marks: ");
+            System.out.print("Database Management Systems Marks : ");
             int dbMarks = scanner.nextInt();
+            scanner.nextLine();
 
-            studentIds[studentCount] = id;
-            studentNames[studentCount] = name;
-            programmingMarks[studentCount] = prMarks;
-            databaseMarks[studentCount] = dbMarks;
-            studentCount++;
-            System.out.println("Student with marks has been added successfully.");
+            if ((prMarks >= 0 && prMarks <= 100) && (dbMarks >= 0 && dbMarks <= 100)) {
+                stId[studentCount] = id;
+                stName[studentCount] = name;
+                programmingMarks[studentCount] = prMarks;
+                databaseMarks[studentCount] = dbMarks;
+                studentCount++;
+                System.out.println("Student with marks added successfully.");
+            } else {
+                System.out.println("Invalid marks. Please enter marks within a valid range (0 – 100).");
+            }
 
             System.out.print("Do you want to add another Student with marks? (yes/no): ");
             String option = scanner.nextLine();
@@ -160,54 +172,50 @@ public class StudentManagementSystem {
             System.out.println("|                                 Add Marks                                   |");
             System.out.println("-------------------------------------------------------------------------------");
 
-            System.out.print("Enter Student ID   : ");
+            System.out.print("Student ID   : ");
             String id = scanner.nextLine();
 
             int index = findStudentIndexById(id);
 
             if (index == -1) {
-                System.out.print("Invalid Student ID. Do you want to search again? (yes/no): ");
+                System.out.print("Student ID not found. Do you want to search again? (yes/no): ");
                 String option = scanner.nextLine();
                 if (!option.equalsIgnoreCase(("yes"))) {
                     break;
                 }
-
-                addMarks(scanner);
                 continue;
             }
 
             if (programmingMarks[index] != 0 || databaseMarks[index] != 0) {
-                System.out.println("This student's marks have been already added.");
+                System.out.println("Marks already assigned for this Student.");
                 System.out.println("If you want to update the marks, please use 'Update Marks' ([4]) option.");
+                System.out.print("Do you want to add marks for existing Student? (yes/no): ");
+                String option = scanner.nextLine();
+                if (!option.equalsIgnoreCase("yes")) {
+                    break;
+                }
                 continue;
             }
 
-            addMarks(scanner, id);
+            System.out.print("Programming Fundamentals Marks    : ");
+            int prMarks = scanner.nextInt();
+            System.out.print("Database Management Systems Marks : ");
+            int dbMarks = scanner.nextInt();
+            scanner.nextLine();
+
+            if ((prMarks >= 0 && prMarks <= 100) && (dbMarks >= 0 && dbMarks <= 100)) {
+                programmingMarks[index] = prMarks;
+                databaseMarks[index] = dbMarks;
+                System.out.println("Marks added successfully.");
+            } else {
+                System.out.println("Invalid marks. Please enter marks within a valid range (0–100).");
+            }
 
             System.out.print("Do you want to add marks for another Student? (yes/no): ");
             String option = scanner.nextLine();
             if (!option.equalsIgnoreCase(("yes"))) {
                 break;
             }
-        }
-    }
-
-    static void addMarks(Scanner scanner, String id) {
-        System.out.print("Programming Fundamentals Marks: ");
-        int prMarks = scanner.nextInt();
-
-        System.out.print("Database Management Systems Marks: ");
-        int dbMarks = scanner.nextInt();
-
-        int index = findStudentIndexById(id);
-
-        if ((prMarks >= 0 && prMarks <= 100) && (dbMarks >= 0 && dbMarks <= 100)) {
-            programmingMarks[index] = prMarks;
-            databaseMarks[index] = dbMarks;
-            System.out.println("Marks have been added.");
-        } else {
-            System.out.println("Invalid marks. Please enter marks within a valid range (0–100).");
-            addMarks(scanner, id);
         }
     }
 
@@ -219,12 +227,13 @@ public class StudentManagementSystem {
             System.out.println("|                               Update Student                                |");
             System.out.println("-------------------------------------------------------------------------------");
 
-            System.out.print("Enter Student ID   : ");
+            System.out.print("Student ID      : ");
             String id = scanner.nextLine();
 
             int index = findStudentIndexById(id);
+
             if (index == -1) {
-                System.out.print("Invalid Student ID. Do you want to search again? (yes/no): ");
+                System.out.print("Student ID not found. Do you want to search again? (yes/no): ");
                 String option = scanner.nextLine();
                 if (!option.equalsIgnoreCase(("yes"))) {
                     break;
@@ -234,14 +243,14 @@ public class StudentManagementSystem {
                 continue;
             }
 
-            System.out.println("Student Name       : " + studentNames[index]);
+            System.out.println("Student Name  : " + stName[index]);
             System.out.println();
-            System.out.print("Enter The New Student Name : ");
+            System.out.print("Update Student Name : ");
             String newName = scanner.nextLine();
-            studentNames[index] = newName;
-            System.out.println("Student details has been updated successfully.");
+            stName[index] = newName;
+            System.out.println("Student details updated successfully.");
 
-            System.out.print("Do you want to update another student's details? (yes/no): ");
+            System.out.print("Do you want to update another Student's details? (yes/no): ");
             String option = scanner.nextLine();
             if (!option.equalsIgnoreCase(("yes"))) {
                 break;
@@ -257,13 +266,13 @@ public class StudentManagementSystem {
             System.out.println("|                                Update Marks                                 |");
             System.out.println("-------------------------------------------------------------------------------");
 
-            System.out.print("Enter Student ID   : ");
+            System.out.print("Student ID : ");
             String id = scanner.nextLine();
 
             int index = findStudentIndexById(id);
 
             if (index == -1) {
-                System.out.print("Invalid Student ID. Do you want to search again? (yes/no): ");
+                System.out.print("Student ID not found. Do you want to search again? (yes/no): ");
                 String option = scanner.nextLine();
                 if (!option.equalsIgnoreCase(("yes"))) {
                     break;
@@ -272,8 +281,9 @@ public class StudentManagementSystem {
                 updateMarks(scanner);
                 continue;
             }
+
             if (programmingMarks[index] == 0 && databaseMarks[index] == 0) {
-                System.out.println("This student's marks yet to be added.");
+                System.out.println("Marks not assigned yet");
                 System.out.print("Do you want to search again? (yes/no): ");
                 String option = scanner.nextLine();
                 if (!option.equalsIgnoreCase(("yes"))) {
@@ -282,25 +292,25 @@ public class StudentManagementSystem {
                 continue;
             }
 
-            System.out.println("Programming Fundamentals Marks    : " + programmingMarks[index]);
-            System.out.println("Database Management Systems Marks : " + databaseMarks[index]);
+            System.out.println("Programming Fundamentals Marks         : " + programmingMarks[index]);
+            System.out.println("Database Management Systems Marks      : " + databaseMarks[index]);
 
             System.out.println();
-            System.out.print("Enter New Programming Fundamentals Marks    : ");
+            System.out.print("Update Programming Fundamentals Marks    : ");
             int prMarks = scanner.nextInt();
-            System.out.print("Enter New Database Management Systems Marks : ");
+            System.out.print("Update Database Management Systems Marks : ");
             int dbMarks = scanner.nextInt();
 
             if ((prMarks >= 0 && prMarks <= 100) && (dbMarks >= 0 && dbMarks <= 100)) {
                 programmingMarks[index] = prMarks;
                 databaseMarks[index] = dbMarks;
-                System.out.println("Marks have been updated successfully.");
+                System.out.println("Marks updated successfully.");
             } else {
                 System.out.println("Invalid marks. Please enter marks within a valid range (0–100).");
                 updateMarks(scanner);
             }
 
-            System.out.print("Do you want to update another student's marks? (yes/no): ");
+            System.out.print("Do you want to update another Student's marks? (yes/no): ");
             String option = scanner.nextLine();
             if (!option.equalsIgnoreCase(("yes"))) {
                 break;
@@ -316,13 +326,13 @@ public class StudentManagementSystem {
             System.out.println("|                               Delete Student                                |");
             System.out.println("-------------------------------------------------------------------------------");
 
-            System.out.print("Enter Student ID   : ");
+            System.out.print("Student ID : ");
             String id = scanner.nextLine();
 
             int index = findStudentIndexById(id);
 
             if (index == -1) {
-                System.out.print("Invalid Student ID. Do you want to search again? (yes/no): ");
+                System.out.print("Student ID not found. Do you want to search again? (yes/no): ");
                 String option = scanner.nextLine();
                 if (!option.equalsIgnoreCase(("yes"))) {
                     break;
@@ -331,16 +341,17 @@ public class StudentManagementSystem {
                 deleteStudent(scanner);
                 continue;
             }
+
             for (int i = index; i < studentCount - 1; i++) {
-                studentIds[i] = studentIds[i + 1];
-                studentNames[i] = studentNames[i + 1];
+                stId[i] = stId[i + 1];
+                stName[i] = stName[i + 1];
                 programmingMarks[i] = programmingMarks[i + 1];
                 databaseMarks[i] = databaseMarks[i + 1];
             }
             studentCount--;
-            System.out.println("Student has been deleted successfully.");
+            System.out.println("Student deleted successfully.");
 
-            System.out.print("Do you want to delete another student's details? (yes/no): ");
+            System.out.print("Do you want to delete another Student's details? (yes/no): ");
             String option = scanner.nextLine();
             if (!option.equalsIgnoreCase(("yes"))) {
                 break;
@@ -356,13 +367,13 @@ public class StudentManagementSystem {
             System.out.println("|                          Print Student Details                              |");
             System.out.println("-------------------------------------------------------------------------------");
 
-            System.out.print("Enter Student ID   : ");
+            System.out.print("Student ID : ");
             String id = scanner.nextLine();
 
             int index = findStudentIndexById(id);
 
             if (index == -1) {
-                System.out.print("Invalid Student ID. Do you want to search again? (yes/no): ");
+                System.out.print("Student ID not found.. Do you want to search again? (yes/no): ");
                 String option = scanner.nextLine();
                 if (!option.equalsIgnoreCase(("yes"))) {
                     break;
@@ -372,11 +383,11 @@ public class StudentManagementSystem {
                 continue;
             }
 
-            System.out.println("Student ID   : " + studentIds[index]);
-            System.out.println("Student Name : " + studentNames[index]);
+            System.out.println("Student ID                             : " + stId[index]);
+            System.out.println("Student Name                           : " + stName[index]);
 
             if (programmingMarks[index] == 0 && databaseMarks[index] == 0) {
-                System.out.println("Marks yet to be added.");
+                System.out.println("Marks not assigned yet");
             } else {
                 int totalMarks = programmingMarks[index] + databaseMarks[index];
                 double avgMarks = totalMarks / 2.0;
@@ -389,7 +400,7 @@ public class StudentManagementSystem {
                 System.out.println("Rank                               : " + rank + getRankSuffix(rank));
             }
 
-            System.out.print("Do you want to print another student's details? (yes/no): ");
+            System.out.print("Do you want to print another Student's details? (yes/no): ");
             String option = scanner.nextLine();
             if (!option.equalsIgnoreCase(("yes"))) {
                 break;
@@ -397,86 +408,113 @@ public class StudentManagementSystem {
         }
     }
 
-    static void printStudentRanks() {
-        clearConsole();
+    static void printStudentRanks(Scanner scanner) {
+        while (true) {
+            clearConsole();
 
-        System.out.println("-------------------------------------------------------------------------------");
-        System.out.println("|                           Print Student Ranks                               |");
-        System.out.println("-------------------------------------------------------------------------------");
+            System.out.println("-------------------------------------------------------------------------------");
+            System.out.println("|                           Print Student Ranks                               |");
+            System.out.println("-------------------------------------------------------------------------------");
 
-        int[] ranks = calculateAllRanks();
+            int[] ranks = calculateAllRanks();
 
-        System.out.println("Student Ranks:");
-        for (int i = 0; i < studentCount; i++) {
-            if (programmingMarks[i] != 0 || databaseMarks[i] != 0) {
-                int totalMarks = programmingMarks[i] + databaseMarks[i];
-                double avgMarks = totalMarks / 2.0;
-                System.out.println("Rank          : " + ranks[i] + getRankSuffix(ranks[i]) +
-                        ", ID            : " + studentIds[i] +
-                        ", Name          : " + studentNames[i] +
-                        ", Total Marks   : " + totalMarks +
-                        ", Average Marks : " + avgMarks);
+            System.out.println("Student Ranks:");
+            System.out.println();
+            System.out.println("===========================================================");
+
+            for (int i = 0; i < studentCount; i++) {
+                if (programmingMarks[i] != 0 || databaseMarks[i] != 0) {
+                    int totalMarks = programmingMarks[i] + databaseMarks[i];
+                    double avgMarks = totalMarks / 2.0;
+                    System.out.println();
+                    System.out.println("Rank          : " + ranks[i] + getRankSuffix(ranks[i]));
+                    System.out.println("ID            : " + stId[i]);
+                    System.out.println("Name          : " + stName[i]);
+                    System.out.println("Total Marks   : " + totalMarks);
+                    System.out.println("Average Marks : " + avgMarks);
+                }
+                System.out.println();
+                System.out.println("===========================================================");
+            }
+
+            System.out.print("Do you want to exit? (yes/no): ");
+            String option = scanner.nextLine();
+            if (!option.equalsIgnoreCase(("no"))) {
+                break;
             }
         }
     }
 
-    static void bestInProgrammingFundamentals() {
-        clearConsole();
+    static void bestInProgrammingFundamentals(Scanner scanner) {
+        while (true) {
+            clearConsole();
 
-        System.out.println("-------------------------------------------------------------------------------");
-        System.out.println("|                      Best in Programming Fundamentals                       |");
-        System.out.println("-------------------------------------------------------------------------------");
+            System.out.println("-------------------------------------------------------------------------------");
+            System.out.println("|                      Best in Programming Fundamentals                       |");
+            System.out.println("-------------------------------------------------------------------------------");
 
-        int bestIndex = -1;
-        int highestMarks = -1;
+            int bestIndex = -1;
+            int highestMarks = -1;
 
-        for (int i = 0; i < studentCount; i++) {
-            if (programmingMarks[i] > highestMarks) {
-                highestMarks = programmingMarks[i];
-                bestIndex = i;
+            for (int i = 0; i < studentCount; i++) {
+                if (programmingMarks[i] > highestMarks) {
+                    highestMarks = programmingMarks[i];
+                    bestIndex = i;
+                }
             }
-        }
 
-        if (bestIndex != -1) {
-            System.out.println("ID    : " + studentIds[bestIndex]);
-            System.out.println("Name  : " + studentNames[bestIndex]);
-            System.out.println("Marks : " + programmingMarks[bestIndex]);
-            System.out.println("Marks : " + databaseMarks[bestIndex]);
-        } else {
-            System.out.println("No student marks found for Programming Fundamentals.");
+            if (bestIndex != -1) {
+                System.out.println("ID    : " + stId[bestIndex]);
+                System.out.println("Name  : " + stName[bestIndex]);
+                System.out.println("Marks : " + programmingMarks[bestIndex]);
+            } else {
+                System.out.println("Empty list of marks for Programming Fundamentals.");
+            }
+
+            System.out.print("Do you want to exit? (yes/no): ");
+            String option = scanner.nextLine();
+            if (!option.equalsIgnoreCase(("no"))) {
+                break;
+            }
         }
     }
 
-    static void bestInDatabaseManagementSystem() {
-        clearConsole();
+    static void bestInDatabaseManagementSystem(Scanner scanner) {
+        while (true) {
+            clearConsole();
 
-        System.out.println("-------------------------------------------------------------------------------");
-        System.out.println("|                     Best in Database Management System                      |");
-        System.out.println("-------------------------------------------------------------------------------");
+            System.out.println("-------------------------------------------------------------------------------");
+            System.out.println("|                     Best in Database Management System                      |");
+            System.out.println("-------------------------------------------------------------------------------");
 
-        int bestIndex = -1;
-        int highestMarks = -1;
+            int bestIndex = -1;
+            int highestMarks = -1;
 
-        for (int i = 0; i < studentCount; i++) {
-            if (databaseMarks[i] > highestMarks) {
-                highestMarks = databaseMarks[i];
-                bestIndex = i;
+            for (int i = 0; i < studentCount; i++) {
+                if (databaseMarks[i] > highestMarks) {
+                    highestMarks = databaseMarks[i];
+                    bestIndex = i;
+                }
             }
-        }
 
-        if (bestIndex != -1) {
-            System.out.println("ID    : " + studentIds[bestIndex]);
-            System.out.println("Name  : " + studentNames[bestIndex]);
-            System.out.println("Marks : " + databaseMarks[bestIndex]);
-            System.out.println("Marks : " + programmingMarks[bestIndex]);
-        } else {
-            System.out.println("No student marks found for Database Management System.");
+            if (bestIndex != -1) {
+                System.out.println("ID    : " + stId[bestIndex]);
+                System.out.println("Name  : " + stName[bestIndex]);
+                System.out.println("Marks : " + databaseMarks[bestIndex]);
+            } else {
+                System.out.println("Empty list of marks for Database Management System.");
+            }
+            System.out.print("Do you want to print another exit? (yes/no): ");
+            String option = scanner.nextLine();
+            if (!option.equalsIgnoreCase(("no"))) {
+                break;
+            }
         }
     }
 
     static int findStudentIndexById(String id) {
         for (int i = 0; i < studentCount; i++) {
-            if (studentIds[i].equals(id)) {
+            if (stId[i].equals(id)) {
                 return i;
             }
         }
@@ -510,7 +548,7 @@ public class StudentManagementSystem {
 
         for (int i = 0; i < studentCount; i++) {
             int rank = 1;
-            
+
             for (int j = 0; j < studentCount; j++) {
                 if (totalMarks[j] > totalMarks[i]) {
                     rank++;
