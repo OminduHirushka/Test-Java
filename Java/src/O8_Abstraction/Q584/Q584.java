@@ -1,42 +1,50 @@
 package O8_Abstraction.Q584;
 
-abstract class Vehicle{
+abstract class Vehicle {
     abstract public void park();
+
     abstract public void start();
-    public void stop(){
+
+    public void stop() {
         // body
     }
 }
 
-// class Car extends Vehicle{}                 // Illegal
+/*
+class Car extends Vehicle {
+                                           // Illegal ( To extend an abstract class, the subclass needs to override all 'abstract' methods )
+}
+*/
 
 /*
-class Jeep extends Vehicle{                 // Illegal
-    public void start(){
+class Jeep extends Vehicle {                // Illegal ( To extend an abstract class, the subclass needs to override all 'abstract' methods )
+    public void start() {
         // body
     }
 }
 */
 
 /*
-class Van extends Vehicle{                  // Illegal
-    public void park(){
+class Van extends Vehicle {                 // Illegal ( To extend an abstract class, the subclass needs to override all 'abstract' methods )
+    public void park() {
         // body
     }
 }
 */
 
-class Bus extends Vehicle{                  // Legal
-    public void start(){
+class Bus extends Vehicle {                 // Legal ( All 'abstract' methods are overrode )
+    public void start() {
         // body
     }
 
-    public void park(){
+    public void park() {
         // body
     }
 }
 
-abstract class MB extends Vehicle{}         // Legal
+abstract class Bike extends Vehicle {        // Legal (Subclass is also an 'abstract' class )
+
+}
 
 public class Q584 {
     public static void main(String[] args) {

@@ -12,6 +12,6 @@ abstract class Lion extends Animal {
 
 class Dog extends Animal { }                        // Legal
 
-class Cat extends Lion { }                          // Illegal
+// class Cat extends Lion { }                       // Illegal
 
 public class Q590 { }

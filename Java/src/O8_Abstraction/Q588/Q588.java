@@ -7,7 +7,7 @@ abstract class Vehicle {
         //
     }
 
-    abstract Vehicle(int year);                     // Illegal
+    // abstract Vehicle(int year);                     // Illegal ( There is nothing called 'abstract constructor' )
 
     abstract public void park();
 }
