@@ -1,12 +1,12 @@
-package O14_JDBC.Step6_PreparedStatement_Insert;
+package O14_JDBC;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
-public class Q646 {
+public class Q645 {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Scanner scanner = new Scanner(System.in);
 
@@ -19,7 +19,7 @@ public class Q646 {
         System.out.print("Input Customer Name : ");
         String name = scanner.nextLine();
 
-        System.out.print("Input Customer DOB : ");
+        System.out.print("Input Customer Birthday : ");
         String dob = scanner.nextLine();
 
         System.out.print("Input Customer Address : ");
@@ -40,20 +40,11 @@ public class Q646 {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/testJAVA", "root", "");
 
-        String sql = "INSERT INTO Customer VALUES(?,?,?,?,?,?,?,?,?)";
+        Statement statement = connection.createStatement();
 
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, customerId);
-        statement.setString(2, title);
-        statement.setString(3, name);
-        statement.setString(4, dob);
-        statement.setDouble(5, salary);
-        statement.setString(6, address);
-        statement.setString(7, city);
-        statement.setString(8, province);
-        statement.setString(9, zip);
+        String sql = "INSERT INTO Customer VALUES ('" + customerId + "', '" + title + "', '" + name + "', '" + dob + "', " + salary + ", '" + address + "', '" + city + "', '" + province + "', '" + zip + "')";
 
-        int result = statement.executeUpdate();
+        int result = statement.executeUpdate(sql);
 
         System.out.println(result > 0 ? "Success" : "Fail");
     }
