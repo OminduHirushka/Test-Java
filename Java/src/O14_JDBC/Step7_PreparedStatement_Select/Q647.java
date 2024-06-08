@@ -12,7 +12,7 @@ public class Q647 {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Input Customer Id : ");
-        String custId = scanner.nextLine();
+        String customerId = scanner.nextLine();
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/testJAVA", "root", "");
@@ -20,12 +20,12 @@ public class Q647 {
         String sql = "SELECT * FROM Customer WHERE CustomerId = ?";
 
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setString(1, custId);
+        statement.setString(1, customerId);
 
         ResultSet rst = statement.executeQuery();
 
         while (rst.next()) {
-            System.out.println(rst.getString("CustomrId") + " " + rst.getString("CustomrTitle") + " " + rst.getString("CustomrName") + " " + rst.getDouble("Salary"));
+            System.out.println(rst.getString("CustomerId") + " " + rst.getString("CustomerTitle") + " " + rst.getString("CustomerName") + " " + rst.getDouble("Salary"));
         }
     }
 }
