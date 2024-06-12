@@ -1,0 +1,24 @@
+package O1_Sort.InsertionSort;
+
+import java.util.Arrays;
+
+public class Step02 {
+    public static void sort(int[] ar) {
+        for (int i = 1; i < ar.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (ar[i] < ar[j]) {
+                    int t = ar[i];
+                    ar[i] = ar[j];
+                    ar[j] = t;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int arr[] = {45, 16, 44, 79, 93, 99, 21, 64, 83};
+        System.out.println(Arrays.toString(arr));               // [45,16,44,79,93,99,21,64,83]
+        sort(arr);
+        System.out.println(Arrays.toString(arr));               // [16,21,44,45,64,79,83,93,99]
+    }
+}
