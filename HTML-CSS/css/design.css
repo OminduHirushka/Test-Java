@@ -1,0 +1,115 @@
+/* descendent selector */
+/*
+div p {
+    background-color: red;
+    font-style: italic;
+}
+*/
+
+
+/* child selector */
+/*
+div>p {
+    background-color: red;
+}
+*/
+
+/* Adjacent sibling selector */
+/*
+div+p {
+    background-color: red;
+}
+*/
+
+/* general sibling selector */
+/*
+div~p {
+    background-color: red;
+}
+*/
+
+/*
+* {
+    font-family: 'Times New Roman', Times, serif;
+    font-family: Arial, Helvetica, sans-serif;
+}
+*/
+
+#serif {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+    color: red;
+}
+
+#sans-serif {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+div {
+    /* All Four Equal */
+    margin: 20px;
+
+    /* All Four Unequal */
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    margin-left: 50px;
+
+    margin: 10px 20px 30px 50px;
+
+    /*  2 sides equal */
+    margin-top: 20px;
+    margin-right: 40px;
+    margin-bottom: 30px;
+    margin-left: 40px;
+
+    margin: 20px 40px 30px;
+
+    /* Both sides equal */
+    margin-top: 30px;
+    margin-right: 50px;
+    margin-bottom: 30px;
+    margin-left: 50px;
+
+    margin: 30px 50px;
+
+}
+
+div {
+    /* border  */
+    border: 5px solid red;
+    border-radius: 50px;
+
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-style: double;
+    border-left-color: green;
+
+    /* margin  */
+    margin: 20px;
+
+    /* padding */
+    padding: 10px;
+    padding: 10px 20px;
+    padding: 10px 20px 40px;
+    padding: 10px 20px 30px 40px;
+
+}
+
+/* pseudo class */
+.para:hover {
+    color: rgb(20, 243, 0);
+    cursor: pointer;
+}
+
+/* pseudo element */
+.para::first-line {
+    color: blue;
+}
+
+.para::first-letter {
+    font-size: 30px;
+    color: red;
+}
