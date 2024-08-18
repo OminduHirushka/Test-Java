@@ -1,0 +1,6 @@
+.border-class {
+    height: 30px;
+    border: 1px solid red;
+    padding: 2px 50%;
+    background-color: #eed9d9;
+}
